@@ -21,11 +21,13 @@ build-container:
 ssh:
 	@$(DC) bash
 
-deploy:
-	@$(DEPLOY_COMMAND)
+upload:
+	scp -i ${CERT_PATH} ./workspace.tar.gz ubuntu@${LIVE_HOST}:${DEPLOY_PATH}
 
 pack:
 	tar -czf workspace.tar.gz --exclude=workspace.tar.gz .
+
+deploy: pack upload
 
 build:
 	@$(NODE) build
