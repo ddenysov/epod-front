@@ -1,0 +1,10 @@
+version: '3'
+services:
+  node:
+    build:
+      context: .
+      dockerfile: ./etc/Dockerfile
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
