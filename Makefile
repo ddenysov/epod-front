@@ -1,7 +1,7 @@
 include .env
 export
 
-DC := docker-compose exec
+DC := docker-compose run
 DOCKER := docker
 NODE := $(DC) node yarn
 OS := $(shell uname)
@@ -15,7 +15,7 @@ start:
 stop:
 	@docker-compose stop
 
-build:
+build-container:
 	@docker-compose build node
 
 ssh:
@@ -27,3 +27,5 @@ deploy:
 pack:
 	tar -czf workspace.tar.gz --exclude=workspace.tar.gz .
 
+build:
+	@$(NODE) build
