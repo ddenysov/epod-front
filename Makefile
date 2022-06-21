@@ -1,9 +1,9 @@
 include .env
 export
 
-DC := docker-compose run
+DC := docker-compose run node
 DOCKER := docker
-NODE := $(DC) node yarn
+NODE := $(DC) yarn
 OS := $(shell uname)
 
 build:
@@ -31,3 +31,15 @@ deploy: pack upload
 
 build:
 	@$(NODE) build
+
+deploy-clean:
+	rm -v !("filename")
+
+deploy-stop:
+	make stop
+
+deploy-start:
+	make start
+
+deploy-unpack:
+	tar -zxvf workspace.tar.gz
