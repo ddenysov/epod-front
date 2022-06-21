@@ -28,7 +28,7 @@ workspace-unpack:
 	ssh -i ${CERT_PATH} -l ubuntu ${LIVE_HOST} 'cd ~/deploy && tar -zxvf workspace.tar.gz'
 
 workspace-start:
-	ssh -i ${CERT_PATH} -l ubuntu ${LIVE_HOST} 'cd ~/deploy && make stop && make build-container && make start'
+	ssh -i ${CERT_PATH} -l ubuntu ${LIVE_HOST} 'cd ~/deploy && make stop && make start'
 
 workspace-upload:
 	scp -i ${CERT_PATH} ./workspace.tar.gz ubuntu@${LIVE_HOST}:${DEPLOY_PATH}
@@ -36,7 +36,7 @@ workspace-upload:
 pack:
 	tar -czf workspace.tar.gz --exclude=workspace.tar.gz .
 
-deploy: pack workspace-clear workspace-upload workspace-unpack workspace-start
+deploy: build pack workspace-clear workspace-upload workspace-unpack workspace-start
 
 build:
 	@$(NODE) build
