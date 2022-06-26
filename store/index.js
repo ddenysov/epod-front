@@ -20,8 +20,8 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit ({ commit }, { req }) {
-    const res = await axios.get('https://localhost');
-    console.log(res);
+    const res = await axios.get('http://localhost:2000/blog');
+    console.log(res.data);
     console.log('a;llala');
   },
   async fetchCounter(state) {
