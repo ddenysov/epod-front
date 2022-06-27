@@ -53,10 +53,15 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [
+    '@nuxtjs/axios'
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
   mode: "universal",
+  axios: {
+    baseURL: process.env.BACKEND ?? 'http://localhost:2000',
+  }
 }

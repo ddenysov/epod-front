@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const state = () => ({
   counter: 0,
   x: 1,
@@ -20,9 +18,8 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit ({ commit }, { req }) {
-    const res = await axios.get('http://localhost:2000/blog');
+    const res = await this.$axios.get('/blog');
     console.log(res.data);
-    console.log('a;llala');
   },
   async fetchCounter(state) {
     // make request
