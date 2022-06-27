@@ -1,6 +1,9 @@
-version: '3'
+version: "3.9"
+
 services:
   node:
+    networks:
+      - backend
     build:
       context: .
       dockerfile: ./etc/Dockerfile
@@ -10,3 +13,7 @@ services:
       - 3000
     volumes:
       - ./:/app
+
+networks:
+  backend:
+   external: true

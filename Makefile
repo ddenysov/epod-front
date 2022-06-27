@@ -13,7 +13,7 @@ start:
 	@docker-compose up -d
 
 stop:
-	@docker-compose down
+	@docker-compose stop
 
 build-container:
 	@docker-compose build node
@@ -28,7 +28,7 @@ workspace-unpack:
 	ssh -i ${CERT_PATH} -l ubuntu ${LIVE_HOST} 'cd ~/deploy && tar -zxvf workspace.tar.gz'
 
 workspace-start:
-	ssh -i ${CERT_PATH} -l ubuntu ${LIVE_HOST} 'cd ~/deploy && make stop && make start'
+	ssh -i ${CERT_PATH} -l ubuntu ${LIVE_HOST} 'cd ~/deploy && make stop && make build-container && make start'
 
 workspace-upload:
 	scp -i ${CERT_PATH} ./workspace.tar.gz ubuntu@${LIVE_HOST}:${DEPLOY_PATH}
@@ -38,5 +38,5 @@ pack:
 
 deploy: build pack workspace-clear workspace-upload workspace-unpack workspace-start
 
-build:
-	@$(NODE) build
+workspace-connect:
+	ssh -i ${CERT_PATH} -l ubuntu ${LIVE_HOST}
