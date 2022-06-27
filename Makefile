@@ -7,7 +7,7 @@ NODE := $(DC) yarn
 OS := $(shell uname)
 
 build:
-	@$(DC) build
+	@$(NODE) build
 
 start:
 	@docker-compose up -d
