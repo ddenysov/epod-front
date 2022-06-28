@@ -1,8 +1,10 @@
 <template>
-  <Nuxt />
+  <div>Header</div>
 </template>
+
 <script>
 export default {
-  name: 'default'
+  name: 'UiHeader'
 }
 </script>
+

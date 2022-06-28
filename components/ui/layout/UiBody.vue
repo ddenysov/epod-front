@@ -1,8 +1,10 @@
 <template>
-  <Nuxt />
+  <div>Body</div>
 </template>
+
 <script>
 export default {
-  name: 'default'
+  name: 'UiBody'
 }
 </script>
+

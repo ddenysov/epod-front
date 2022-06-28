@@ -1,8 +1,10 @@
 <template>
-  <Nuxt />
+  <div>Foter</div>
 </template>
+
 <script>
 export default {
-  name: 'default'
+  name: 'UiFooter'
 }
 </script>
+

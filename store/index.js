@@ -13,13 +13,19 @@ export const getter = {
 export const mutations = {
   increment(state) {
     state.counter++
+  },
+
+  setTree(state, payload) {
+    state.tree = payload;
   }
 }
 
 export const actions = {
   async nuxtServerInit ({ commit }, { req }) {
-    const res = await this.$axios.get('/blog');
+    const res = await this.$axios.get('/');
+    commit('setTree', res.data);
     console.log(res.data);
+
   },
   async fetchCounter(state) {
     // make request

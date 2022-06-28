@@ -1,5 +1,5 @@
 <template>
-  <div>ssdsdіівів</div>
+  <ui-builder />
 </template>
 
 <script lang="ts">
