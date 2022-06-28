@@ -1,9 +1,3 @@
-<template>
-  <div>
-    <component v-for="(component, index) in tree.children" :is="component.tag" :key="index" />
-  </div>
-</template>
-
 <script>
 import { mapState } from 'vuex';
 
@@ -20,6 +14,15 @@ export default {
     ...mapState({
       tree: state => state.tree,
     })
-  }
+  },
+  render: function (createElement) {
+    const build = function (data) {
+      return createElement(data.tag, data.children.map((component) => {
+        return build(component);
+      }))
+    };
+
+    return build(this.tree);
+  },
 }
 </script>

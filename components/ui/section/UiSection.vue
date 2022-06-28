@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h1>Body</h1>
+    Section
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'UiBody'
+  name: 'UiSection'
 }
 </script>
-

@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h1>Body</h1>
+    <h2>Events container</h2>
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'UiBody'
+  name: 'AppEvents'
 }
 </script>
-

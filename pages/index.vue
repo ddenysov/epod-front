@@ -1,5 +1,5 @@
 <template>
-  <ui-builder />
+  <ui-builder>aaaaa</ui-builder>
 </template>
 
 <script lang="ts">
