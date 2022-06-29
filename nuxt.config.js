@@ -30,7 +30,8 @@ export default {
     ],
     bodyAttrs: {
       class: 'd-flex flex-column h-100'
-    }
+    },
+    script: []
   },
 
 
@@ -41,6 +42,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~plugins/element.js',
     '~plugins/components.js',
   ],
 

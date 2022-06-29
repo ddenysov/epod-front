@@ -1,0 +1,18 @@
+.large {
+  .el-input__inner {
+    padding: 25px;
+    font-size: 16px;
+  }
+}
+
+button.large {
+  height: 50px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.full-width {
+  .el-select {
+    width: 100%
+  }
+}
