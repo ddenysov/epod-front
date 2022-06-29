@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>Body</h1>
-    <slot />
+    <div class="wrapper">
+      <slot />
+    </div>
   </div>
 </template>
 
