@@ -8,7 +8,7 @@
         <span class="bookmark-icon" title="Bookmark"></span>
       </div>
       <div class="event-content">
-        <a href="venue_event_detail_view.html" class="event-title">A New Way Of Life</a>
+        <a href="venue_event_detail_view.html" class="event-title">{{ title }}</a>
         <div class="duration-price-remaining">
           <span class="duration-price">AUD $100.00*</span>
           <span class="remaining"></span>
@@ -30,7 +30,18 @@
 
 <script>
 export default {
-  name: 'AppEventPreview'
+  /**
+   * Component name
+   */
+  name: 'AppEventPreview',
+
+  /**
+   * Props
+   */
+  props: {
+    title: String,
+    required: true,
+  }
 }
 </script>
 

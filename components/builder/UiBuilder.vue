@@ -7,16 +7,22 @@ export default {
    */
   name: 'UiBuilder',
 
-  /**
-   * Computed props
-   */
-  computed: {
-    ...mapState({
-      tree: state => state.tree,
-    })
+  props: {
+    tree: {
+      type: [Object, Array],
+      required: true,
+    }
   },
+
   render: function (createElement) {
     const build = function (data) {
+      if (Object.keys(data.input).length > 0) {
+        console.log(data.input);
+        return createElement(data.tag, { ...data.input }, data.children.map((component) => {
+          return build(component);
+        }))
+      }
+
       return createElement(data.tag, data.children.map((component) => {
         return build(component);
       }))
