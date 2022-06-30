@@ -1,5 +1,5 @@
 <template>
-  <ui-builder :tree="tree" />
+  <h1>ololo</h1>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ import Vue from 'vue'
 import {mapState} from "vuex";
 
 export default Vue.extend({
-  name: 'IndexPage',
+  name: 'CreatePage',
 
   /**
    * Computed props

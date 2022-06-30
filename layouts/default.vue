@@ -1,5 +1,9 @@
 <template>
-  <Nuxt />
+  <div>
+    <ui-header />
+    <Nuxt />
+    <ui-footer />
+  </div>
 </template>
 <script>
 export default {

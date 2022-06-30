@@ -9,15 +9,19 @@
 							<i class="fa-solid fa-bars"></i>
 						</span>
           </button>
-          <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 me-auto" href="index.html">
-            <div class="res-main-logo">
-              <img src="images/logo-icon.svg" alt="">
-            </div>
-            <div class="main-logo" id="logo">
-              <img src="images/logo.svg" alt="">
-              <img class="logo-inverse" src="images/dark-logo.svg" alt="">
-            </div>
-          </a>
+          <NuxtLink to="/">
+            <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 me-auto" >
+              <div class="res-main-logo">
+
+                  <img src="images/logo-icon.svg" alt="">
+
+              </div>
+              <div class="main-logo" id="logo">
+                <img src="images/logo.svg" alt="">
+                <img class="logo-inverse" src="images/dark-logo.svg" alt="">
+              </div>
+            </a>
+          </NuxtLink>
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
                aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
@@ -59,10 +63,10 @@
           <div class="right-header order-2">
             <ul class="align-self-stretch">
               <li>
-                <a href="create.html" class="create-btn btn-hover">
+                <NuxtLink class="create-btn btn-hover" to="/event/create">
                   <i class="fa-solid fa-calendar-days"></i>
                   <span>Create Event</span>
-                </a>
+                </NuxtLink>
               </li>
               <li class="dropdown account-dropdown">
                 <a href="#" class="account-link" role="button" id="accountClick" data-bs-auto-close="outside"

@@ -2,9 +2,9 @@
   <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
     <div class="main-card mt-4">
       <div class="event-thumbnail">
-        <a href="venue_event_detail_view.html" class="thumbnail-img">
+        <nuxt-link to="/event/create" class="thumbnail-img">
           <img src="https://picsum.photos/300/200" alt="">
-        </a>
+        </nuxt-link>
         <span class="bookmark-icon" title="Bookmark"></span>
       </div>
       <div class="event-content">
