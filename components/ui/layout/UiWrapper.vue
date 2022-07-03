@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <slot />
-  </div>
+  <div class="wrapper"><slot /></div>
 </template>
 
 <script>
 export default {
-  name: 'UiBody'
+  name: 'UiWrapper'
 }
 </script>
-

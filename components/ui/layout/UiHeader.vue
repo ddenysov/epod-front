@@ -9,18 +9,14 @@
 							<i class="fa-solid fa-bars"></i>
 						</span>
           </button>
-          <NuxtLink to="/">
-            <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 me-auto" >
-              <div class="res-main-logo">
-
-                  <img src="images/logo-icon.svg" alt="">
-
-              </div>
-              <div class="main-logo" id="logo">
-                <img src="images/logo.svg" alt="">
-                <img class="logo-inverse" src="images/dark-logo.svg" alt="">
-              </div>
-            </a>
+          <NuxtLink class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 me-auto" to="/">
+            <div class="res-main-logo">
+              <img src="images/logo-icon.svg" alt="">
+            </div>
+            <div class="main-logo" id="logo">
+              <img src="images/logo.svg" alt="">
+              <img class="logo-inverse" src="images/dark-logo.svg" alt="">
+            </div>
           </NuxtLink>
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
                aria-labelledby="offcanvasNavbarLabel">
@@ -53,8 +49,7 @@
                   <ul class="dropdown-menu dropdown-submenu">
                     <li><a class="dropdown-item" href="explore_events.html">Explore Events</a></li>
                     <li><a class="dropdown-item" href="venue_event_detail_view.html">Venue Event Detail View</a></li>
-                    <li><a class="dropdown-item" href="online_event_detail_view.html">Online Event Detail View</a>
-                    </li>
+                    <li><a class="dropdown-item" href="online_event_detail_view.html">Online Event Detail View</a></li>
                   </ul>
                 </li>
               </ul>
