@@ -1,5 +1,5 @@
 <template>
-  <h1>ololo</h1>
+  <ui-builder :tree="tree" />
 </template>
 
 <script>
@@ -9,13 +9,14 @@ import {mapState} from "vuex";
 export default Vue.extend({
   name: 'CreatePage',
 
-  /**
-   * Computed props
-   */
-  computed: {
-    ...mapState({
-      tree: state => state.tree,
-    })
+  data() {
+    return {
+      tree: []
+    }
+  },
+  async fetch() {
+    const res = await this.$axios.get('/event/create');
+    this.tree = res.data;
   },
 })
 </script>

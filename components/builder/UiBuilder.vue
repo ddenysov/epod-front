@@ -16,8 +16,11 @@ export default {
 
   render: function (createElement) {
     const build = function (data) {
+        if (Object.keys(data).length === 0) {
+          return createElement('div');
+        }
+
       if (Object.keys(data.input).length > 0) {
-        console.log(data.input);
         return createElement(data.tag, { ...data.input }, data.children.map((component) => {
           return build(component);
         }))

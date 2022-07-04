@@ -27,6 +27,7 @@ export default {
       { rel: 'stylesheet', href: '/vendor/OwlCarousel/assets/owl.theme.default.min.css' },
       { rel: 'stylesheet', href: '/vendor/bootstrap/css/bootstrap.min.css' },
       { rel: 'stylesheet', href: '/vendor/bootstrap-select/dist/css/bootstrap-select.min.css' },
+      { rel: 'stylesheet', href: '/vendor/bootstrap-select/dist/css/bootstrap-select.min.css' },
     ],
     bodyAttrs: {
       class: 'd-flex flex-column h-100'
@@ -43,11 +44,17 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~plugins/element.js',
-    '~plugins/components.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    '~/components/builder',
+    '~/components/app/events',
+    '~/components/ui/form',
+    '~/components/ui/layout',
+    '~/components/ui/section',
+    '~/components/ui/steps',
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
