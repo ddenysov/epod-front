@@ -8,6 +8,7 @@
         ref="form"
         :model="form"
         :rules="rules"
+        @input="updateForm"
       >
         <slot  />
       </ui-form>
@@ -56,7 +57,7 @@ export default {
   data () {
     return {
       form: {
-        name: '',
+        name: 'trololo',
         description: '',
       },
       rules: {
@@ -78,13 +79,19 @@ export default {
     beforeNext () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          alert('submit!');
+          this.next(this.form);
         } else {
           console.log('error submit!!');
           return false;
         }
       });
-      // this.next();
+    },
+
+    /**
+     * Update form
+     */
+    updateForm (value) {
+      this.form = { ...value };
     },
 
     /**

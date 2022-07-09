@@ -41,6 +41,7 @@ export default {
   data () {
     return {
       active: 0,
+      state: {},
     };
   },
 
@@ -89,7 +90,8 @@ export default {
     /**
      * Next
      */
-    next () {
+    next (form) {
+      this.$set(this.state, this.active, form);
       this.active++;
     },
 

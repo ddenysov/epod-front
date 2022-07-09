@@ -76,6 +76,21 @@ export default {
     input (field, value) {
       this.form[field] = value;
     }
+  },
+
+  /**
+   * Watcher
+   */
+  watch: {
+    /**
+     * Form
+     */
+    form: {
+      deep: true,
+      handler(value) {
+        this.$emit('input', value);
+      }
+    }
   }
 }
 </script>

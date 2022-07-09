@@ -13,7 +13,7 @@ export default {
    */
   name: 'UiTextInput',
 
-  inject: ['input', 'elFormItem'],
+  inject: ['input', 'elFormItem', 'elForm'],
 
   /**
    * Data elements
@@ -23,6 +23,11 @@ export default {
     return {
       innerValue: '',
     }
+  },
+
+  created () {
+    this.innerValue = this.elForm.model[this.elFormItem.$options.propsData.prop];
+    console.log('createedd');
   },
 
   methods: {
