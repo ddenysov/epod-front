@@ -3,8 +3,9 @@
     <li
       v-for="(step, index) in steps"
       :class="{ active: active() >= index }"
+      :style="{ cursor: 'pointer' }"
     >
-      <a href="#tab_step1">
+      <a @click="change(index)">
         <span class="number"></span>
         <span class="step-name">{{ step.title }}</span>
       </a>

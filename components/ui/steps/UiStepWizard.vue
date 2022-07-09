@@ -24,13 +24,17 @@ export default {
     VNodeRenderer,
   },
 
+  /**
+   * Provide values
+   * @returns {{next: default.methods.next, change: default.methods.change, active: (function(): number), back: default.methods.back, steps: {title: *}[]}}
+   */
   provide () {
-    // use function syntax so that we can access `this`
     return {
       steps: this.steps,
       active: () => this.active,
       next: this.next,
       back: this.back,
+      change: this.change,
     }
   },
 
@@ -46,17 +50,8 @@ export default {
   },
 
   /**
-   * Created hook
+   * Computed properties
    */
-  created () {
-    const state = () => ({
-      foo: 'bar'
-    });
-    this.$store.registerModule('UiSteps', {
-      state: () => ({ololo: 'trololo'}),
-    });
-  },
-
   computed: {
     /**
      * Get steps nodes from default slots
@@ -78,6 +73,10 @@ export default {
       return this.$slots.default[this.active];
     },
 
+    /**
+     * Get current step data
+     * @returns {{title: *}}
+     */
     currentStep () {
       return this.steps[this.active];
     }
@@ -101,6 +100,14 @@ export default {
     back () {
       this.active--;
     },
+
+    /**
+     * Change step
+     * @param index
+     */
+    change (index) {
+      this.active = index;
+    }
   }
 }
 </script>
