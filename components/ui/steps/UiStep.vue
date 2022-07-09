@@ -6,8 +6,8 @@
     <ui-step-content ref="content">
       <ui-form
         ref="form"
-        :model="form"
-        :rules="rules"
+        :model="formModel"
+        :rules="formRules"
         @input="updateForm"
       >
         <slot  />
@@ -48,6 +48,14 @@ export default {
       type: String,
       required: true,
     },
+
+    /**
+     * Form
+     */
+    form: {
+      type: Object,
+      required: true,
+    }
   },
 
   /**
@@ -56,10 +64,7 @@ export default {
    */
   data () {
     return {
-      form: {
-        name: 'trololo',
-        description: '',
-      },
+      formData: {},
       rules: {
         description: [
           { required: true, message: 'Please input Activity name', trigger: 'blur' },
@@ -67,6 +72,33 @@ export default {
         ],
       }
     }
+  },
+
+  /**
+   * Created hook
+   */
+  created () {
+    this.form.fields.forEach((field) => {
+      //this.$set(this.formData, field.name, field.value);
+    });
+  },
+
+  computed: {
+    formModel () {
+      return this.form.fields.reduce((prev, curr) => {
+        prev[curr.name] = curr.value;
+
+        return prev;
+      }, {})
+    },
+
+    formRules () {
+      return this.form.fields.reduce((prev, curr) => {
+        prev[curr.name] = curr.validation;
+
+        return prev;
+      }, {})
+    },
   },
 
   /**
@@ -79,7 +111,7 @@ export default {
     beforeNext () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.next(this.form);
+          this.next(this.formData);
         } else {
           console.log('error submit!!');
           return false;
@@ -91,7 +123,7 @@ export default {
      * Update form
      */
     updateForm (value) {
-      this.form = { ...value };
+      this.formData = { ...value };
     },
 
     /**

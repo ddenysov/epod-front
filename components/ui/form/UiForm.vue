@@ -56,7 +56,6 @@ export default {
 
   created () {
     Object.keys(this.model).forEach((key) => {
-      console.log(key);
       this.$set(this.form, key, this.model[key]);
     });
   },
