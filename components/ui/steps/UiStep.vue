@@ -3,21 +3,38 @@
     <slot name="header">
       <ui-step-progress />
     </slot>
-    <ui-step-content>
-      <slot />
+    <ui-step-content ref="content">
+      <ui-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+      >
+        <slot  />
+      </ui-form>
     </ui-step-content>
     <slot name="footer">
-      <ui-step-footer />
+      <ui-step-footer
+        @next="beforeNext"
+        @back="beforeBack"
+        @submit="beforeSubmit"
+      />
     </slot>
   </div>
 </template>
 
 <script>
+import StepMixin from '@/components/ui/steps/mixins/StepMixin';
+
 export default {
   /**
    * Component name
    */
   name: 'UiStep',
+
+  /**
+   * Mixins
+   */
+  mixins: [StepMixin],
 
   /**
    * Props
@@ -31,5 +48,58 @@ export default {
       required: true,
     },
   },
+
+  /**
+   * Form
+   * @returns {{form: {}}}
+   */
+  data () {
+    return {
+      form: {
+        name: '',
+        description: '',
+      },
+      rules: {
+        description: [
+          { required: true, message: 'Please input Activity name', trigger: 'blur' },
+          { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
+        ],
+      }
+    }
+  },
+
+  /**
+   * Methods
+   */
+  methods: {
+    /**
+     * Before next hook
+     */
+    beforeNext () {
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+      // this.next();
+    },
+
+    /**
+     * Before back hook
+     */
+    beforeBack () {
+      this.back();
+    },
+
+    /**
+     * Before submit hook
+     */
+    beforeSubmit () {
+      this.submit();
+    },
+  }
 }
 </script>

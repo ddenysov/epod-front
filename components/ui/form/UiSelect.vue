@@ -1,20 +1,15 @@
 <template>
-  <el-form-item
-    class="large full-width"
-    label=""
+  <el-select
+    v-model="inner"
+    placeholder="Оберіть тип велосипеду"
   >
-    <el-select
-      v-model="inner"
-      placeholder="Оберіть тип велосипеду"
-    >
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-      </el-option>
-    </el-select>
-  </el-form-item>
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
 </template>
 
 <script>

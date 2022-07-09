@@ -1,7 +1,7 @@
 <template>
   <el-input
     placeholder="Please input"
-    v-model="input"
+    v-model="innerValue"
     @input="onInput"
   />
 </template>
@@ -13,19 +13,21 @@ export default {
    */
   name: 'UiTextInput',
 
+  inject: ['input', 'elFormItem'],
+
   /**
    * Data elements
-   * @returns {{input: string}}
+   * @returns {{innerValue: string}}
    */
   data () {
     return {
-      input: '',
+      innerValue: '',
     }
   },
 
   methods: {
     onInput(value) {
-      this.$emit('input', value);
+      this.input(this.elFormItem.$options.propsData.prop, value);
     }
   }
 }

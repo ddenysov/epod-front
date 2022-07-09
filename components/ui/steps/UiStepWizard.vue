@@ -35,16 +35,6 @@ export default {
   },
 
   /**
-   * Props
-   */
-  props: {
-    state: {
-      type: [Object, Array],
-      required: true,
-    }
-  },
-
-  /**
    * Data
    * @returns {{active: number}}
    */

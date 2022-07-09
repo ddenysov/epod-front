@@ -1,5 +1,5 @@
 <template>
-  <el-form-item>
+  <el-form-item :prop="name">
     <template slot="label">
       <div v-if="label !== ''" :style="{ 'text-align': 'left'}">
         <span class="form-label fs-16" :style="{ 'margin-bottom': '0px'}" v-html="label" />
@@ -24,6 +24,14 @@ export default {
     /**
      * Label
      */
+    name: {
+      type: String,
+      required: true,
+    },
+
+    /**
+     * Label
+     */
     label: {
       type: String,
       required: false,
@@ -37,7 +45,7 @@ export default {
       type: String,
       required: false,
       default: '',
-    }
+    },
   }
 }
 </script>

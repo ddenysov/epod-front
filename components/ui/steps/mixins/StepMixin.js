@@ -2,7 +2,7 @@ export default {
   /**
    * Inject properties
    */
-  inject: ['steps', 'currentStep', 'active', 'next', 'active', 'back'],
+  inject: ['steps', 'active', 'next', 'active', 'back'],
 
   /**
    * Computed properties
