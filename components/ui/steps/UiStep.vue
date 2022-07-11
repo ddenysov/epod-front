@@ -50,15 +50,13 @@ export default {
     /**
      * Before next hook
      */
-    beforeNext () {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          this.next(this.formData);
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
+    async beforeNext () {
+      try {
+        const res = await this.$slots.default[0].componentInstance.$refs.observer.validate();
+        console.log(res);
+      } catch (e) {
+        console.warn(e);
+      }
     },
 
     /**

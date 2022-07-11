@@ -6,7 +6,7 @@
     size="large"
     hide-required-asterisk
   >
-    <ValidationObserver>
+    <ValidationObserver ref="observer">
       <slot />
     </ValidationObserver>
   </el-form>
@@ -56,11 +56,11 @@ export default {
     }
   },
 
-/*  created () {
+  created () {
     Object.keys(this.model).forEach((key) => {
       this.$set(this.form, key, this.model[key]);
     });
-  },*/
+  },
 
   /**
    * Methods
