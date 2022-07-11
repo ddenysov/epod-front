@@ -4,14 +4,7 @@
       <ui-step-progress />
     </slot>
     <ui-step-content ref="content">
-      <ui-form
-        ref="form"
-        :model="formModel"
-        :rules="formRules"
-        @input="updateForm"
-      >
-        <slot  />
-      </ui-form>
+      <slot />
     </ui-step-content>
     <slot name="footer">
       <ui-step-footer
@@ -47,51 +40,6 @@ export default {
     title: {
       type: String,
       required: true,
-    },
-
-    /**
-     * Form
-     */
-    form: {
-      type: Object,
-      required: true,
-    }
-  },
-
-  /**
-   * Form
-   * @returns {{form: {}}}
-   */
-  data () {
-    return {
-      formData: {},
-    }
-  },
-
-  /**
-   * Created hook
-   */
-  created () {
-    this.form.fields.forEach((field) => {
-      //this.$set(this.formData, field.name, field.value);
-    });
-  },
-
-  computed: {
-    formModel () {
-      return this.form.fields.reduce((prev, curr) => {
-        prev[curr.name] = curr.value;
-
-        return prev;
-      }, {})
-    },
-
-    formRules () {
-      return this.form.fields.reduce((prev, curr) => {
-        prev[curr.name] = curr.validation;
-
-        return prev;
-      }, {})
     },
   },
 
