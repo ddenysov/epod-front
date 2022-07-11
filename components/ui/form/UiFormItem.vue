@@ -1,5 +1,5 @@
 <template>
-  <ValidationProvider rules="required|email" name="Email" v-slot="{ errors }">
+  <ValidationProvider :custom-messages="{ required: 'required message' }" :rules="{ required: true, email: true }" name="Email" v-slot="{ errors }">
     <el-form-item :error="errors[0]" label="Email">
       <el-input v-model="email" />
       <span>Errros: {{ errors }}</span>
