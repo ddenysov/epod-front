@@ -6,7 +6,9 @@
     size="large"
     hide-required-asterisk
   >
-    <slot />
+    <ValidationObserver>
+      <slot />
+    </ValidationObserver>
   </el-form>
 </template>
 
