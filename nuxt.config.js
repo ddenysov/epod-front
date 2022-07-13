@@ -52,6 +52,8 @@ export default {
     '~/components/builder',
     '~/components/app/events',
     '~/components/ui/form',
+    '~/components/ui/form/symfony',
+    '~/components/ui/form/blocks',
     '~/components/ui/layout',
     '~/components/ui/section',
     '~/components/ui/steps',

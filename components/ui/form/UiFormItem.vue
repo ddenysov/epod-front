@@ -7,7 +7,10 @@
           <p class="d-block fs-14 mb-3" v-html="description" />
         </div>
       </template>
-      <el-input v-model="email" />
+      <el-input
+        placeholder="Please input"
+        v-model="text"
+      />
     </el-form-item>
   </ValidationProvider>
 </template>
@@ -70,7 +73,7 @@ export default {
 
   data () {
     return {
-      email: '',
+      text: '',
     }
   }
 }

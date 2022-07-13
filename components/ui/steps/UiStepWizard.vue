@@ -2,27 +2,18 @@
   <div class="row justify-content-center p-80">
     <div class="col-xl-8 col-lg-9 col-md-12">
       <div class="wizard-steps-block">
-        <VNodeRenderer :nodes="currentStepNode" />
+        <slot />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import VNodeRenderer from '@/components/builder/VNodeRenderer';
-
 export default {
   /**
    * Steps
    */
   name: 'UiStepWizard',
-
-  /**
-   * Components
-   */
-  components: {
-    VNodeRenderer,
-  },
 
   /**
    * Provide values

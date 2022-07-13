@@ -1,5 +1,5 @@
 <template>
-  <div id="add-event-tab" class="step-app">
+  <div v-if="index == active()" id="add-event-tab" class="step-app">
     <slot name="header">
       <ui-step-progress />
     </slot>
@@ -18,6 +18,7 @@
 
 <script>
 import StepMixin from '@/components/ui/steps/mixins/StepMixin';
+import {eventBus} from '@/services/eventBus';
 
 export default {
   /**
@@ -41,6 +42,14 @@ export default {
       type: String,
       required: true,
     },
+
+    /**
+     * Step index
+     */
+    index: {
+      type: Number,
+      required: true,
+    }
   },
 
   /**
@@ -51,19 +60,11 @@ export default {
      * Before next hook
      */
     async beforeNext () {
-      try {
-        const res = await this.$slots.default[0].componentInstance.$refs.observer.validate();
-        console.log(res);
-      } catch (e) {
-        console.warn(e);
-      }
-    },
-
-    /**
-     * Update form
-     */
-    updateForm (value) {
-      this.formData = { ...value };
+      eventBus.$emit('validate', (res, form) => {
+        if (res) {
+          this.next(form);
+        }
+      });
     },
 
     /**

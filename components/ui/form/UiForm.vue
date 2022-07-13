@@ -1,18 +1,20 @@
 <template>
-  <el-form
-    ref="elForm"
-    :model="form"
-    :rules="rules"
-    size="large"
-    hide-required-asterisk
-  >
-    <ValidationObserver ref="observer">
+  <ValidationObserver ref="observer">
+    <el-form
+      ref="elForm"
+      :model="form"
+      :rules="rules"
+      size="large"
+      hide-required-asterisk
+    >
       <slot />
-    </ValidationObserver>
-  </el-form>
+    </el-form>
+  </ValidationObserver>
 </template>
 
 <script>
+import {eventBus} from '@/services/eventBus';
+
 export default {
   /**
    * Component name
@@ -57,6 +59,12 @@ export default {
   },
 
   created () {
+    eventBus.$off('validate');
+    eventBus.$on('validate', async (callback) => {
+      const res = await this.$refs.observer.validate();
+      callback(res, this.form);
+    })
+
     Object.keys(this.model).forEach((key) => {
       this.$set(this.form, key, this.model[key]);
     });
@@ -66,14 +74,6 @@ export default {
    * Methods
    */
   methods: {
-    /**
-     * Proxy validation
-     * @returns {Promise<unknown>}
-     */
-    validate (callback) {
-      return this.$refs.elForm.validate(callback);
-    },
-
     input (field, value) {
       this.form[field] = value;
     }
@@ -88,7 +88,7 @@ export default {
      */
     form: {
       deep: true,
-      handler(value) {
+      handler (value) {
         this.$emit('input', value);
       }
     }

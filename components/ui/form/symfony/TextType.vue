@@ -1,12 +1,24 @@
 <template>
-  <el-input
-    placeholder="Please input"
-    v-model="innerValue"
-    @input="onInput"
-  />
+  <ValidationProvider :custom-messages="messages" :rules="rules" :name="name" v-slot="{ errors }">
+    <el-form-item :error="errors[0]">
+      <template slot="label">
+        <ui-form-label
+          :label="label"
+          :description="description"
+        />
+      </template>
+      <el-input
+        placeholder=""
+        v-model="innerValue"
+        @input="onInput"
+      />
+    </el-form-item>
+  </ValidationProvider>
 </template>
 
 <script>
+import FormItem from '@/components/ui/form/mixins/FormItem';
+
 export default {
   /**
    * Component name
@@ -14,9 +26,14 @@ export default {
   name: 'TextType',
 
   /**
+   * Mixins
+   */
+  mixins: [FormItem],
+
+  /**
    * Inject
    */
-  inject: ['input', 'elFormItem', 'elForm'],
+  inject: ['input', 'elForm'],
 
   /**
    * Data elements
@@ -29,13 +46,12 @@ export default {
   },
 
   created () {
-    this.innerValue = this.elForm.model[this.elFormItem.$options.propsData.prop];
-    console.log('createedd');
+    this.innerValue = this.elForm.$options.propsData.model[this.name];
   },
 
   methods: {
-    onInput(value) {
-      this.input(this.elFormItem.$options.propsData.prop, value);
+    onInput (value) {
+      this.input(this.name, value);
     }
   }
 }
