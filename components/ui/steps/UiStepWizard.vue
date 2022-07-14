@@ -23,6 +23,7 @@ export default {
     return {
       steps: this.steps,
       active: () => this.active,
+      state: () => this.state,
       next: this.next,
       back: this.back,
       change: this.change,
@@ -71,6 +72,14 @@ export default {
     currentStep () {
       return this.steps[this.active];
     }
+  },
+
+  created () {
+    this.$store.registerModule('uiWizard', {
+      state: () => ({
+        ololo: 'trololo',
+      })
+    });
   },
 
   /**

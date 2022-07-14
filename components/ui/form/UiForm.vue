@@ -59,10 +59,15 @@ export default {
   },
 
   created () {
-    eventBus.$off('validate');
-    eventBus.$on('validate', async (callback) => {
+    eventBus.$off('form:validate');
+    eventBus.$off('form:init');
+    eventBus.$on('form:validate', async (callback) => {
       const res = await this.$refs.observer.validate();
       callback(res, this.form);
+    });
+
+    eventBus.$on('form:init', async (state) => {
+      this.form = {...state};
     })
 
     Object.keys(this.model).forEach((key) => {

@@ -2,7 +2,7 @@ export default {
   /**
    * Inject properties
    */
-  inject: ['steps', 'active', 'next', 'active', 'back', 'change'],
+  inject: ['steps', 'active', 'next', 'active', 'back', 'change', 'state'],
 
   /**
    * Computed properties
@@ -38,6 +38,14 @@ export default {
      */
     currentStep () {
       return this.steps[this.active()];
+    },
+
+    /**
+     * Get current step state
+     * @returns {*}
+     */
+    currentState () {
+      return this.state()[this.active()];
     }
   },
 }

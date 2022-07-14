@@ -60,7 +60,7 @@ export default {
      * Before next hook
      */
     async beforeNext () {
-      eventBus.$emit('validate', (res, form) => {
+      eventBus.$emit('form:validate', (res, form) => {
         if (res) {
           this.next(form);
         }
