@@ -26,6 +26,14 @@ export default {
    */
   props: {
     /**
+     * Form name
+     */
+    name: {
+      type: String,
+      required: true,
+    },
+
+    /**
      * Model
      */
     model: {
@@ -59,6 +67,12 @@ export default {
   },
 
   created () {
+    this.$store.registerModule('form:' + this.name, {
+      state: () => ({
+        ololo: 'trololo',
+      })
+    });
+
     eventBus.$off('form:validate');
     eventBus.$off('form:init');
     eventBus.$on('form:validate', async (callback) => {

@@ -74,14 +74,6 @@ export default {
     }
   },
 
-  created () {
-    this.$store.registerModule('uiWizard', {
-      state: () => ({
-        ololo: 'trololo',
-      })
-    });
-  },
-
   /**
    * Methods
    */
