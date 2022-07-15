@@ -14,6 +14,7 @@
 
 <script>
 import {eventBus} from '@/services/eventBus';
+import {getField, mapFields, updateField} from 'vuex-map-fields';
 
 export default {
   /**
@@ -53,6 +54,7 @@ export default {
   provide () {
     return {
       input: this.input,
+      formName: 'form_' + this.name,
     }
   },
 
@@ -66,12 +68,30 @@ export default {
     }
   },
 
+  computed: {
+    ...mapFields('form_event', ['title']),
+  },
+
   created () {
-    this.$store.registerModule('form:' + this.name, {
-      state: () => ({
-        ololo: 'trololo',
-      })
-    });
+    console.log('fooorrrm');
+    if (!this.$store.hasModule('form_' + this.name)) {
+      console.log('sukasss')
+      this.$store.registerModule('form_' + this.name, {
+        namespaced: true,
+        state: () => {
+          return {...this.model}
+        },
+        getters: {
+          getField,
+        },
+        mutations: {
+          updateField,
+        },
+        actions: {
+          hi () {},
+        }
+      });
+    }
 
     eventBus.$off('form:validate');
     eventBus.$off('form:init');

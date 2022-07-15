@@ -19,6 +19,7 @@
 <script>
 import StepMixin from '@/components/ui/steps/mixins/StepMixin';
 import {eventBus} from '@/services/eventBus';
+import {mapState} from 'vuex';
 
 export default {
   /**
@@ -52,6 +53,12 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState('form_event', {
+      formData: state => ({...state}),
+    })
+  },
+
   /**
    * Methods
    */
@@ -62,7 +69,7 @@ export default {
     async beforeNext () {
       eventBus.$emit('form:validate', (res, form) => {
         if (res) {
-          this.next(form);
+          this.next({...this.formData});
         }
       });
     },

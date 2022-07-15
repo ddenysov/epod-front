@@ -9,8 +9,7 @@
       </template>
       <el-input
         placeholder=""
-        v-model="innerValue"
-        @input="onInput"
+        v-model="innerData"
       />
     </el-form-item>
   </ValidationProvider>
@@ -18,6 +17,7 @@
 
 <script>
 import FormItem from '@/components/ui/form/mixins/FormItem';
+import {mapFields} from 'vuex-map-fields';
 
 export default {
   /**
@@ -33,7 +33,7 @@ export default {
   /**
    * Inject
    */
-  inject: ['input', 'elForm'],
+  inject: ['input', 'elForm', 'formName'],
 
   /**
    * Data elements
@@ -45,14 +45,18 @@ export default {
     }
   },
 
-  created () {
-    this.innerValue = this.elForm.$options.propsData.model[this.name];
-  },
-
-  methods: {
-    onInput (value) {
-      this.input(this.name, value);
+  computed: {
+    innerData: {
+      get () {
+        return this.$store.state[this.formName][this.name];
+      },
+      set (value) {
+        this.$store.commit(this.formName + '/updateField', {
+          path: this.name,
+          value: value,
+        });
+      }
     }
-  }
+  },
 }
 </script>
