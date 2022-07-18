@@ -73,9 +73,7 @@ export default {
   },
 
   created () {
-    console.log('fooorrrm');
     if (!this.$store.hasModule('form_' + this.name)) {
-      console.log('sukasss')
       this.$store.registerModule('form_' + this.name, {
         namespaced: true,
         state: () => {
@@ -97,7 +95,14 @@ export default {
     eventBus.$off('form:init');
     eventBus.$on('form:validate', async (callback) => {
       const res = await this.$refs.observer.validate();
-      callback(res, this.form);
+      try {
+        await callback(res, this.form);
+      } catch (e) {
+        console.log('ololo123');
+        console.log(e);
+        console.log(e.response.data.errors);
+        this.$refs.observer.setErrors(e.response.data.errors);
+      }
     });
 
     eventBus.$on('form:init', async (state) => {

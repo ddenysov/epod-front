@@ -1,3 +1,5 @@
+const BASE_URL = process.env.BACKEND ?? 'http://localhost:2000';
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -67,7 +69,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -79,6 +82,10 @@ export default {
   },
   mode: "universal",
   axios: {
-    baseURL: process.env.BACKEND ?? 'http://localhost:2000',
-  }
+    baseURL: process.env.BACKEND ?? 'http://localhost:3000/api',
+  },
+
+  proxy: [
+    'http://localhost:2000/api',
+  ]
 }

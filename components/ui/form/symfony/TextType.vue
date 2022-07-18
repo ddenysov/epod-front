@@ -29,34 +29,5 @@ export default {
    * Mixins
    */
   mixins: [FormItem],
-
-  /**
-   * Inject
-   */
-  inject: ['input', 'elForm', 'formName'],
-
-  /**
-   * Data elements
-   * @returns {{innerValue: string}}
-   */
-  data () {
-    return {
-      innerValue: '',
-    }
-  },
-
-  computed: {
-    innerData: {
-      get () {
-        return this.$store.state[this.formName][this.name];
-      },
-      set (value) {
-        this.$store.commit(this.formName + '/updateField', {
-          path: this.name,
-          value: value,
-        });
-      }
-    }
-  },
 }
 </script>

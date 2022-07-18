@@ -67,8 +67,14 @@ export default {
      * Before next hook
      */
     async beforeNext () {
-      eventBus.$emit('form:validate', (res, form) => {
+      eventBus.$emit('form:validate', async (res, form) => {
         if (res) {
+          const response = await this.$axios.post('/form/store', this.formData, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
           this.next({...this.formData});
         }
       });

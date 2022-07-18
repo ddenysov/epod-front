@@ -1,5 +1,10 @@
 export default {
   /**
+   * Inject
+   */
+  inject: ['formName'],
+
+  /**
    * Props
    */
   props: {
@@ -56,4 +61,44 @@ export default {
       default: () => ({})
     },
   },
+
+  /**
+   * Computed props
+   */
+  computed: {
+    innerData: {
+      get () {
+        return this.getValue(this.$store.state[this.formName][this.name]);
+      },
+      set (value) {
+        this.$store.commit(this.formName + '/updateField', {
+          path: this.name,
+          value: this.setValue(value),
+        });
+      }
+    }
+  },
+
+  /**
+   * Methods
+   */
+  methods: {
+    /**
+     * Modify value before set
+     * @param value
+     * @returns {*}
+     */
+    setValue (value) {
+      return value;
+    },
+
+    /**
+     * Get value before get
+     * @param value
+     * @returns {*}
+     */
+    getValue (value) {
+      return value;
+    }
+  }
 }
