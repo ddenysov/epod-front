@@ -46,6 +46,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~plugins/element.js',
+    { src: '~plugins/map.js', ssr: false },
     '~plugins/veeValidate.js'
   ],
 
@@ -59,6 +60,7 @@ export default {
     '~/components/ui/layout',
     '~/components/ui/section',
     '~/components/ui/steps',
+    '~/components/ui/grid',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -71,6 +73,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    'nuxt-leaflet',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
