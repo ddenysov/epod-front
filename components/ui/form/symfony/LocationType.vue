@@ -8,11 +8,12 @@
         />
       </template>
 
-      <l-map style="height: 300px" :zoom="zoom" :center="center" @click="addMarker">
-        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-        <l-marker :lat-lng="markerLatLng"></l-marker>
-      </l-map>
-
+      <client-only>
+        <l-map style="height: 300px" :zoom="zoom" :center="center" @click="addMarker">
+          <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+          <l-marker v-if="innerData" :lat-lng="innerData"></l-marker>
+        </l-map>
+      </client-only>
       <el-input
         placeholder=""
         v-model="innerData"
@@ -41,14 +42,21 @@ export default {
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       zoom: 14,
-      center: [50.4677917,30.4215867,14.27],
-      markerLatLng: [50.4677917,30.4215867]
+      center: [50.4677917, 30.4215867, 14.27],
+      markerLatLng: [50.4677917, 30.4215867]
     };
   },
 
+  /**
+   * Methods
+   */
   methods: {
+    /**
+     * Add marker to map
+     * @param e
+     */
     addMarker (e) {
-      this.markerLatLng = e.latlng;
+      this.innerData = e.latlng;
     }
   }
 }

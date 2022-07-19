@@ -1,12 +1,23 @@
 <template>
-  <el-input
-    placeholder="Please input"
-    v-model="innerValue"
-    @input="onInput"
-  />
+  <ValidationProvider :custom-messages="messages" :rules="rules" :name="name" v-slot="{ errors }">
+    <el-form-item :error="errors[0]">
+      <template slot="label">
+        <ui-form-label
+          :label="label"
+          :description="description"
+        />
+      </template>
+      <client-only>
+        <VueEditor v-model="innerData" />
+      </client-only>
+    </el-form-item>
+  </ValidationProvider>
 </template>
 
 <script>
+import FormItem from '@/components/ui/form/mixins/FormItem';
+// Advanced Use - Hook into Quill's API for Custom Functionality
+
 export default {
   /**
    * Component name
@@ -14,29 +25,8 @@ export default {
   name: 'TextareaType',
 
   /**
-   * Inject
+   * Mixins
    */
-  inject: ['input', 'elFormItem', 'elForm'],
-
-  /**
-   * Data elements
-   * @returns {{innerValue: string}}
-   */
-  data () {
-    return {
-      innerValue: '',
-    }
-  },
-
-  created () {
-    this.innerValue = this.elForm.model[this.elFormItem.$options.propsData.prop];
-    console.log('createedd');
-  },
-
-  methods: {
-    onInput(value) {
-      this.input(this.elFormItem.$options.propsData.prop, value);
-    }
-  }
+  mixins: [FormItem],
 }
 </script>

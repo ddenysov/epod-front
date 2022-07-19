@@ -47,6 +47,7 @@ export default {
   plugins: [
     '~plugins/element.js',
     { src: '~plugins/map.js', ssr: false },
+    { src: '~plugins/vue2-editor.js', ssr: false },
     '~plugins/veeValidate.js'
   ],
 
@@ -67,6 +68,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    'vue2-editor/nuxt',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
