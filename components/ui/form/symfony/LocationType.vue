@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider :custom-messages="messages" :rules="rules" :name="name" v-slot="{ errors }">
-    <el-form-item :error="errors[0]">
+    <el-form-item :error="errors[0]" :style="{height: '360px'}">
       <template slot="label">
         <ui-form-label
           :label="label"
@@ -15,6 +15,7 @@
         </l-map>
       </client-only>
       <el-input
+        type="hidden"
         placeholder=""
         v-model="innerData"
       />

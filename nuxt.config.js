@@ -92,5 +92,6 @@ export default {
 
   proxy: [
     'http://localhost:2000/api',
+    'http://localhost:2000/uploads',
   ]
 }

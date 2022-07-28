@@ -1,8 +1,15 @@
 <template>
-  <div class="row justify-content-center p-80">
-    <div class="col-xl-8 col-lg-9 col-md-12">
-      <div class="wizard-steps-block">
-        <slot />
+  <div class="container">
+    <div class="col-lg-12 col-md-12 mt-40">
+      <div class="main-title text-center">
+        <h3>Створити нову подію</h3>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-lg-9 col-md-12">
+        <div class="wizard-steps-block">
+          <slot />
+        </div>
       </div>
     </div>
   </div>
