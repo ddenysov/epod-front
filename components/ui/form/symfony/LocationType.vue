@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider :custom-messages="messages" :rules="rules" :name="name" v-slot="{ errors }">
-    <el-form-item :error="errors[0]" :style="{height: '360px'}">
+    <el-form-item class="location-type" :error="errors[0]" :style="{height: '380px'}">
       <template slot="label">
         <ui-form-label
           :label="label"

@@ -8,17 +8,15 @@
         />
       </template>
       <div class="content-holder mt-4">
-        <div class="default-event-thumb">
-          <el-upload
-            ref="uploader"
-            class="upload-demo"
-            action="/api/image/upload"
-            :on-change="handlePreview"
-            list-type="picture-card">
-            <el-button size="small" type="primary">Click to upload</el-button>
-            <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
-          </el-upload>
-        </div>
+        <el-upload
+          ref="uploader"
+          class="upload-demo"
+          action="/api/image/upload"
+          :on-change="handlePreview"
+          list-type="picture-card">
+          <el-button size="small" type="primary">Click to upload</el-button>
+          <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
+        </el-upload>
       </div>
     </el-form-item>
   </ValidationProvider>

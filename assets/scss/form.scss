@@ -28,3 +28,16 @@ button.large {
 .el-form-item__label {
   float: inherit;
 }
+
+.location-type {
+  .el-form-item__error {
+    top: inherit;
+    bottom: 10px;
+  }
+}
+
+.is-error {
+  .quillWrapper, .vue2leaflet-map, .el-upload--picture-card {
+    border: red 1px solid;
+  }
+}
