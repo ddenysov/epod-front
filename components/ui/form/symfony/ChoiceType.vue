@@ -8,7 +8,7 @@
           :description="description"
         />
       </template>
-      <el-select class="large" v-model="value" :class="{ 'full-width': fullWidth }" placeholder="Select">
+      <el-select class="large" v-model="innerData" :class="{ 'full-width': fullWidth }" placeholder="Select">
         <el-option
           v-for="item in choices"
           :key="item.value"
@@ -16,6 +16,7 @@
           :value="item.value">
         </el-option>
       </el-select>
+      <event-proxy :value="innerData" />
     </el-form-item>
   </ValidationProvider>
 </template>
@@ -23,6 +24,7 @@
 <script>
 import FormItem from '@/components/ui/form/mixins/FormItem';
 import {mapFields} from 'vuex-map-fields';
+import EventProxy from '@/components/ui/form/validation/EventProxy';
 
 export default {
   /**
@@ -30,6 +32,7 @@ export default {
    */
   name: 'ChoiceType',
 
+  components: {EventProxy},
   /**
    * Mixins
    */

@@ -68,21 +68,23 @@ export default {
     }
   },
 
-  computed: {
-    ...mapFields('form_event', ['title']),
-  },
-
   created () {
     if (!this.$store.hasModule('form_' + this.name)) {
       this.$store.registerModule('form_' + this.name, {
         namespaced: true,
         state: () => {
-          return {...this.model}
+          return {
+            form: {...this.model},
+            stack: [],
+          }
         },
         getters: {
           getField,
         },
         mutations: {
+          SUBMIT (state) {
+            state.stack.push({...state.form})
+          },
           updateField,
         },
         actions: {

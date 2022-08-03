@@ -1,5 +1,7 @@
 <template>
-  <ui-button :full-width="fullWidth">Пошук</ui-button>
+  <el-form-item>
+    <ui-button :full-width="fullWidth" @click="submit">Пошук</ui-button>
+  </el-form-item>
 </template>
 
 <script>
@@ -20,6 +22,17 @@ export default {
     fullWidth: {
       type: Boolean,
       default: false,
+    }
+  },
+
+  /**
+   * Inject
+   */
+  inject: ['formName'],
+
+  methods: {
+    submit () {
+      this.$store.commit(this.formName + '/SUBMIT');
     }
   }
 }

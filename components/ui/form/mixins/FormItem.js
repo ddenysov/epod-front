@@ -68,11 +68,11 @@ export default {
   computed: {
     innerData: {
       get () {
-        return this.getValue(this.$store.state[this.formName][this.name]);
+        return this.getValue(this.$store.state[this.formName].form[this.name]);
       },
       set (value) {
         this.$store.commit(this.formName + '/updateField', {
-          path: this.name,
+          path: 'form.' + this.name,
           value: this.setValue(value),
         });
       }

@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
+
 export default {
   /**
    * Component name
@@ -84,13 +86,25 @@ export default {
     this.period = this.filters[0];
   },
 
+  computed: {
+    ...mapState('form_search', [
+      'stack', 'form',
+    ])
+  },
+
   /**
    * Methods
    */
   methods: {
     async load () {
+      const params = new URLSearchParams();
+      params.append('category', this.form.category)
+      params.append('complexity', this.form.complexity)
+      params.append('period', this.period.key)
+
+
       this.loading = true;
-      const response = await this.$axios.get('/events');
+      const response = await this.$axios.get('/events?' + params.toString());
       this.children = response.data;
       console.log('result');
       this.loading = false;
@@ -108,7 +122,12 @@ export default {
     period (value) {
       console.log(value);
       this.load();
-    }
+    },
+
+    stack (value) {
+      console.log(value.at(-1));
+      this.load();
+    },
   }
 }
 </script>

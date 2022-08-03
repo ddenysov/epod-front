@@ -1,5 +1,8 @@
 <template>
-  <el-button :class="{ 'full-width': fullWidth, 'large': true }" type="primary">
+  <el-button
+    v-on="$listeners"
+    :class="{ 'full-width': fullWidth, 'large': true }"
+    type="primary">
     <slot />
   </el-button>
 </template>
