@@ -4,22 +4,7 @@
       <div class="row justify-content-center">
         <div class="col-xl-8 col-lg-8 col-md-10">
           <div class="hero-banner-content">
-            <h2>Discover Events For All The Things You Love</h2>
-            <div class="search-form main-form">
-              <ui-form>
-                <div class="row g-3">
-                  <div class="col-lg-5 col-md-12">
-                    <ui-select />
-                  </div>
-                  <div class="col-lg-5 col-md-12">
-                    <ui-select />
-                  </div>
-                  <div class="col-lg-2 col-md-12">
-                    <ui-button>Пошук</ui-button>
-                  </div>
-                </div>
-              </ui-form>
-            </div>
+            <slot />
           </div>
         </div>
       </div>

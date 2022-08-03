@@ -32,7 +32,7 @@ export default {
       { rel: 'stylesheet', href: '/vendor/bootstrap-select/dist/css/bootstrap-select.min.css' },
     ],
     bodyAttrs: {
-      class: 'd-flex flex-column h-100'
+      // class: 'd-flex flex-column h-100'
     },
     script: []
   },

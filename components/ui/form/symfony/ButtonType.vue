@@ -1,12 +1,14 @@
 <template>
-  <el-button :class="{ 'full-width': fullWidth, 'large': true }" type="primary">
-    <slot />
-  </el-button>
+  <ui-button :full-width="fullWidth">Пошук</ui-button>
 </template>
 
 <script>
+
 export default {
-  name: 'UiButton',
+  /**
+   * Component name
+   */
+  name: 'ButtonType',
 
   /**
    * Props
