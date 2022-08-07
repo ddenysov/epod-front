@@ -23,11 +23,10 @@ export const mutations = {
 
   setSubTree(state, payload) {
     console.log('payload');
-    console.log(payload);
+    console.log(payload.input.props.name);
     const map = (items) => {
       if (items.children && items.children.length > 0) {
-        console.log(items.tag);
-        if (items.tag === 'app-events') {
+        if (items.input.props && items.input.props.name === payload.input.props.name) {
           Vue.set(items, 'children', payload.children);
         } else {
           Vue.set(items, 'children', items.children.map((item) => map(item)));

@@ -24,14 +24,22 @@ export default {
         return createElement(data.tag, data.content);
       }
 
-      if (Object.keys(data.input).length > 0) {
-        data.input.props.active = 111;
-        return createElement(data.tag, {...data.input}, data.children.map((component) => {
-          return build(component);
-        }))
+      let params = {...data.input};
+
+      if (Object.keys(data.slots).length > 0) {
+        console.log(data.slots.filters);
+        console.log(data);
+
+        params = Object.assign(params, {
+          scopedSlots: {
+            filters: () => build(data.slots.filters),
+          },
+        });
+
+        console.log(params);
       }
 
-      return createElement(data.tag, data.children.map((component) => {
+      return createElement(data.tag, params, data.children.map((component) => {
         return build(component);
       }))
     };

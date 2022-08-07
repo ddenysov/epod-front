@@ -7,7 +7,7 @@
         </div>
         <div class="event-filter-items">
           <div>
-            FILTERS
+            <slot name="filters" />
             <div class="all event-box" style="display: block;">
               <div class="row" data-ref="event-filter-content" id="MixItUp6074C6">
                 <slot />

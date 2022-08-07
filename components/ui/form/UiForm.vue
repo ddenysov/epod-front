@@ -69,6 +69,7 @@ export default {
   },
 
   created () {
+    const self = this;
     if (!this.$store.hasModule('form_' + this.name)) {
       this.$store.registerModule('form_' + this.name, {
         namespaced: true,
@@ -83,7 +84,7 @@ export default {
         },
         mutations: {
           SUBMIT (state) {
-            state.stack.push({...state.form})
+            state.stack.push({...state.form, ...{ action: '/events' }})
           },
           updateField,
         },

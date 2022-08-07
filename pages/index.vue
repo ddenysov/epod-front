@@ -4,10 +4,19 @@
 
 <script>
 import Vue from 'vue'
-import {mapState} from "vuex";
+import {mapState} from 'vuex';
+import Form from '@/services/page/mixins/Form';
 
 export default Vue.extend({
+  /**
+   * Component name
+   */
   name: 'IndexPage',
+
+  /**
+   * Component mixins
+   */
+  mixins: [Form],
 
   /**
    * Computed props
@@ -15,7 +24,20 @@ export default Vue.extend({
   computed: {
     ...mapState({
       tree: state => state.tree,
-    })
+    }),
+  },
+
+  /**
+   * Methods
+   */
+  methods: {
+    /**
+     * Form keys
+     * @returns {*[]}
+     */
+    keys () {
+      return ['form_search', 'form_filter'];
+    }
   },
 })
 </script>
