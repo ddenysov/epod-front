@@ -1,51 +1,14 @@
 <template>
-  <div class="explore-events p-80">
-    <div class="container">
-      <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12">
-          <div class="main-title">
-            <h3 class="all event-box" style="display: block;">{{ period.label }}</h3>
-          </div>
-          <div class="event-filter-items">
-            <div>
-              <div>
-                <el-radio-group v-model="period" size="mini">
-                  <el-radio-button
-                    v-for="(filter, index) in filters"
-                    :key="index"
-                    :label="filter"
-                  >
-                    {{ filter.label }}
-                  </el-radio-button>
-                </el-radio-group>
-              </div>
-              <div class="all event-box" style="display: block;">
-                <div v-loading="loading" class="row">
-                  <template v-if="children">
-                    <ui-builder
-                      v-for="(component, index) in children.children"
-                      :key="index"
-                      :tree="component"
-                    />
-                  </template>
-                  <template v-else>
-                    <slot />
-                  </template>
-                </div>
-              </div>
-              <div class="browse-btn">
-                <a href="#" class="main-btn btn-hover ">No More Event</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ui-grid
+    label="Всі"
+  >
+    <slot/>
+  </ui-grid>
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapState, mapActions} from 'vuex';
+import Element from '@/components/builder/mixins/Element';
 
 export default {
   /**
@@ -54,9 +17,21 @@ export default {
   name: 'AppEvents',
 
   /**
+   * Mixins
+   */
+  mixins: [Element],
+
+  /**
    * Props
    */
   props: {
+    /**
+     * Params
+     */
+    params: {
+      type: Array,
+      default: () => ([]),
+    },
     /**
      * Filters
      */
@@ -79,23 +54,24 @@ export default {
     };
   },
 
-  /**
-   * Created hook
-   */
-  created () {
-    this.period = this.filters[0];
-  },
-
   computed: {
     ...mapState('form_search', [
       'stack', 'form',
-    ])
+    ]),
+
+    ...mapState({
+      tree: state => state.tree,
+    }),
   },
 
   /**
    * Methods
    */
   methods: {
+    ...mapActions([
+      'updateTree'
+    ]),
+
     async load () {
       const params = new URLSearchParams();
       params.append('category', this.form.category)
@@ -106,7 +82,7 @@ export default {
       this.loading = true;
       const response = await this.$axios.get('/events?' + params.toString());
       this.children = response.data;
-      console.log('result');
+      this.updateTree(response.data);
       this.loading = false;
     },
   },
@@ -120,12 +96,10 @@ export default {
      * @param value
      */
     period (value) {
-      console.log(value);
       this.load();
     },
 
     stack (value) {
-      console.log(value.at(-1));
       this.load();
     },
   }

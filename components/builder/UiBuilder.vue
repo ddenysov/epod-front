@@ -15,7 +15,7 @@ export default {
   },
 
   render: function (createElement) {
-    const build = function (data) {
+    const build = function (data, parent) {
       if (Object.keys(data).length === 0) {
         return createElement('div');
       }

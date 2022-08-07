@@ -63,6 +63,7 @@ export default {
     '~/components/ui/section',
     '~/components/ui/steps',
     '~/components/ui/grid',
+    '~/components/ui/collection/grid',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
