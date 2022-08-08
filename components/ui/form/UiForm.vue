@@ -135,7 +135,7 @@ export default {
       deep: true,
       async handler (value) {
         const res = await this.$refs['observer_' + this.name].validate();
-        if (true || res) {
+        if (res) {
           this.$refs['observer_' + this.name].reset();
           this.$store.commit([this.name] + '/submit');
         }
