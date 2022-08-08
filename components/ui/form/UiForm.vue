@@ -1,7 +1,7 @@
 <template>
-  <ValidationObserver ref="observer">
+  <ValidationObserver :ref="'observer_' + name">
     <el-form
-      ref="elForm"
+      :ref="'elForm_' + name"
       :model="form"
       :rules="rules"
       size="large"
@@ -54,7 +54,7 @@ export default {
   provide () {
     return {
       input: this.input,
-      formName: 'form_' + this.name,
+      formName: this.name,
     }
   },
 
@@ -70,21 +70,28 @@ export default {
 
   created () {
     const self = this;
-    if (!this.$store.hasModule('form_' + this.name)) {
-      this.$store.registerModule('form_' + this.name, {
+    if (!this.$store.hasModule(this.name)) {
+      this.$store.registerModule(this.name, {
         namespaced: true,
         state: () => {
           return {
             form: {...this.model},
+            touched: false,
             stack: [],
+            dirty: [],
+            valid: [],
           }
         },
         getters: {
           getField,
         },
         mutations: {
-          SUBMIT (state) {
-            state.stack.push({...state.form, ...{ action: '/events' }})
+          validate (state) {
+            state.touched = true;
+            state.dirty.push({...state.form});
+          },
+          submit (state) {
+            state.valid.push({...state.form});
           },
           updateField,
         },
@@ -93,28 +100,6 @@ export default {
         }
       });
     }
-
-    eventBus.$off('form:validate');
-    eventBus.$off('form:init');
-    eventBus.$on('form:validate', async (callback) => {
-      const res = await this.$refs.observer.validate();
-      try {
-        await callback(res, this.form);
-      } catch (e) {
-        console.log('ololo123');
-        console.log(e);
-        console.log(e.response.data.errors);
-        this.$refs.observer.setErrors(e.response.data.errors);
-      }
-    });
-
-    eventBus.$on('form:init', async (state) => {
-      this.form = {...state};
-    })
-
-    Object.keys(this.model).forEach((key) => {
-      this.$set(this.form, key, this.model[key]);
-    });
   },
 
   /**
@@ -127,16 +112,43 @@ export default {
   },
 
   /**
+   * Computed props
+   */
+  computed: {
+    /**
+     * Form unvalidated stack
+     * @returns {any}
+     */
+    dirty () {
+      if (!this.$store.state[this.name]) {
+        return [];
+      }
+      return this.$store.state[this.name].dirty;
+    }
+  },
+
+  /**
    * Watcher
    */
   watch: {
+    dirty: {
+      deep: true,
+      async handler (value) {
+        const res = await this.$refs['observer_' + this.name].validate();
+        if (true || res) {
+          this.$refs['observer_' + this.name].reset();
+          this.$store.commit([this.name] + '/submit');
+        }
+      },
+    },
+
     /**
      * Form
      */
     form: {
       deep: true,
       handler (value) {
-        this.$emit('input', value);
+        //this.$emit('input', value);
       }
     }
   }

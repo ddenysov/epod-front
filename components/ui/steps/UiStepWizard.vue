@@ -43,7 +43,7 @@ export default {
    */
   data () {
     return {
-      active: 1,
+      active: 0,
       state: {},
     };
   },
@@ -88,9 +88,10 @@ export default {
     /**
      * Next
      */
-    next (form) {
+    next (form, index) {
+      console.log('NEXT');
       this.$set(this.state, this.active, form);
-      this.active++;
+      this.active = index + 1;
     },
 
     /**

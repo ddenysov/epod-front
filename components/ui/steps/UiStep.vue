@@ -37,6 +37,14 @@ export default {
    */
   props: {
     /**
+     * Form name
+     */
+    name: {
+      type: String,
+      required: true,
+    },
+
+    /**
      * Step title
      */
     title: {
@@ -54,9 +62,43 @@ export default {
   },
 
   computed: {
-    ...mapState('form_event', {
-      formData: state => ({...state}),
-    })
+    formStack() {
+      if (!this.$store.state[this.name]) {
+        return [];
+      }
+      return this.$store.state[this.name].valid;
+    },
+
+    formTouched() {
+      if (!this.$store.state[this.name]) {
+        return false;
+      }
+      return this.$store.state[this.name].touched;
+    },
+  },
+
+  /**
+   * Watcher
+   */
+  watch: {
+    /**
+     * Form stack
+     */
+    formStack: {
+      deep: true,
+      handler (value, prevValue) {
+        console.log('DEBUG');
+        console.log(this.name);
+        console.log(this.formTouched);
+        if (this.formTouched) {
+          console.log('_____________GOING NEXT')
+          console.log(value)
+          console.log(prevValue)
+          this.next({...value}, this.index);
+        }
+      },
+
+    }
   },
 
   /**
@@ -67,17 +109,7 @@ export default {
      * Before next hook
      */
     async beforeNext () {
-      eventBus.$emit('form:validate', async (res, form) => {
-        if (res) {
-          const response = await this.$axios.post('/form/store', this.formData, {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
-
-          this.next({...this.formData});
-        }
-      });
+      this.$store.commit('first_step/validate')
     },
 
     /**
