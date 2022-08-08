@@ -100,6 +100,14 @@ export default {
         }
       });
     }
+
+
+  },
+
+  mounted () {
+    this.$nextTick(function() {
+      this.$refs['observer_' + this.name].reset();
+    })
   },
 
   /**
@@ -136,8 +144,11 @@ export default {
       async handler (value) {
         const res = await this.$refs['observer_' + this.name].validate();
         if (res) {
-          this.$refs['observer_' + this.name].reset();
-          this.$store.commit([this.name] + '/submit');
+          this.$nextTick(function () {
+            this.$store.commit([this.name] + '/submit');
+          })
+
+
         }
       },
     },
