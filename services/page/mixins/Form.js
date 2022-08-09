@@ -11,7 +11,7 @@ export default {
      * @returns {{}}
      */
     stack () {
-      console.log('this.keys');
+      /*console.log('this.keys');
       console.log(this.keys());
       const keys = ['form_search', 'form_filter'];
 
@@ -23,7 +23,7 @@ export default {
         }
       });
 
-      return values;
+      return values;*/
     }
   },
 
@@ -37,7 +37,7 @@ export default {
     stack: {
       deep: true,
       handler: async function(value) {
-        await this.load(value);
+        //await this.load(value);
       }
     }
   },

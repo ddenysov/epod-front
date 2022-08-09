@@ -33,6 +33,14 @@ export default {
     },
 
     /**
+     * Form group
+     */
+    group: {
+      type: String,
+      required: false,
+    },
+
+    /**
      * Model
      */
     model: {
@@ -68,7 +76,8 @@ export default {
   provide () {
     return {
       input: this.input,
-      formName: this.name,
+      formName: this.storeName,
+      formParts: this.storeParts,
     }
   },
 
@@ -76,12 +85,17 @@ export default {
    * Created hook
    */
   created () {
-    if (!this.$store.hasModule(this.name)) {
-      this.$store.registerModule(this.name, store);
-      this.$store.commit(this.name + '/init', {
+    if (this.group && !this.$store.hasModule(this.group) ) {
+      this.$store.registerModule(this.group, { namespaced: true });
+    }
+
+    if (!this.$store.hasModule(this.storeParts)) {
+      this.$store.registerModule(this.storeParts, store);
+      this.$store.commit([this.storeName, 'init'].join('/'), {
         model: this.model,
         action: this.action,
         method: this.method,
+        group: this.group,
       });
     }
   },
@@ -90,7 +104,7 @@ export default {
    * Mounted hook
    */
   mounted () {
-    this.$nextTick(function() {
+    this.$nextTick(function () {
       this.$refs['observer_' + this.name].reset();
     })
   },
@@ -100,21 +114,41 @@ export default {
    */
   computed: {
     /**
+     * Store parts
+     */
+    storeParts () {
+      const parts = [];
+      if (this.group) {
+        parts.push(this.group);
+      }
+      parts.push(this.name)
+
+      return parts;
+    },
+
+    /**
+     * Store name
+     */
+    storeName () {
+      return this.storeParts.join('/');
+    },
+
+    /**
      * Form unvalidated stack
      * @returns {any}
      */
     dirty () {
-      if (!this.$store.state[this.name]) {
+      if (!this.$store.state[this.storeName]) {
         return [];
       }
-      return this.$store.state[this.name].dirty;
+      return this.$store.state[this.storeName].dirty;
     },
 
     errors () {
-      if (!this.$store.state[this.name]) {
+      if (!this.$store.state[this.storeName]) {
         return [];
       }
-      return this.$store.state[this.name].errors;
+      return this.$store.state[this.storeName].errors;
     },
   },
 
@@ -141,7 +175,7 @@ export default {
         const res = await this.$refs['observer_' + this.name].validate();
         if (res) {
           this.$nextTick(function () {
-            this.$store.dispatch(this.name + '/submit');
+            this.$store.dispatch(this.storeName + '/submit');
           });
         }
       },

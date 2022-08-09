@@ -1,4 +1,10 @@
+import FormHelper from '~/components/ui/form/mixins/FormHelper';
+
 export default {
+  /**
+   * Mixins
+   */
+  mixins: [FormHelper],
   /**
    * Inject
    */
@@ -68,7 +74,7 @@ export default {
   computed: {
     innerData: {
       get () {
-        return this.getValue(this.$store.state[this.formName].form[this.name]);
+        return this.getValue(this.getState().form[this.name]);
       },
       set (value) {
         this.$store.commit(this.formName + '/updateField', {

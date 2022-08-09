@@ -45,6 +45,11 @@ export default {
          * Form method
          */
         method: '',
+
+        /**
+         * Form group
+         */
+        group: '',
       },
     }
   },
@@ -68,10 +73,11 @@ export default {
      * @param state
      * @param payload
      */
-    init(state, { model, method, action }) {
-      state.form = { ...model };
+    init (state, {model, method, action, group}) {
+      state.form = {...model};
       state.params.method = method;
       state.params.action = action;
+      state.params.group = group;
     },
     /**
      * Push form data to validate stack
@@ -112,14 +118,37 @@ export default {
      * Submit form
      * @param state
      * @param commit
+     * @param rootState
      * @returns {Promise<void>}
      */
-    async submit({ state, commit }) {
+    async submit ({state, commit, rootState}) {
+      let form = {};
+      if (state.params.group) {
+        Object.entries(rootState[state.params.group]).forEach((v) => {
+          form = {...form, ...v[1].form}
+        })
+      } else {
+        form = state.form;
+      }
+
+      let url = state.params.action;
+      let data = {};
+      const method = state.params.method;
+
+      if (state.params.method.toLowerCase() === 'get') {
+        const params = new URLSearchParams();
+        Object.entries(form).forEach((v) => {
+          params.append(v[0], v[1]);
+        });
+        url = [url, params.toString()].join('?');
+      } else {
+        data = form;
+      }
       try {
         const res = await this.$axios.request({
-          method: state.params.method,
-          url: state.params.action,
-          data: state.form,
+          method,
+          url,
+          data,
         });
         commit('submit');
       } catch (e) {
