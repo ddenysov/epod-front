@@ -69,12 +69,16 @@ export default {
       return this.$store.state[this.name].valid;
     },
 
-    formTouched() {
+    form() {
       if (!this.$store.state[this.name]) {
         return false;
       }
-      return this.$store.state[this.name].touched;
+      return this.$store.state[this.name].form;
     },
+
+    stackLength() {
+      return this.formStack.length;
+    }
   },
 
   /**
@@ -84,18 +88,13 @@ export default {
     /**
      * Form stack
      */
-    formStack: {
+    stackLength: {
       deep: true,
       handler (value, prevValue) {
-        console.log('DEBUG');
-        console.log(this.name);
-        console.log(this.formTouched);
-        if (this.formTouched) {
-          console.log('_____________GOING NEXT')
-          console.log(value)
-          console.log(prevValue)
-          this.next({...value}, this.index);
+        if (value === prevValue) {
+          return;
         }
+        this.next({...this.form}, this.index);
       },
 
     }

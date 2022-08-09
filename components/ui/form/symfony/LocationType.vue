@@ -14,24 +14,21 @@
           <l-marker v-if="innerData" :lat-lng="innerData"></l-marker>
         </l-map>
       </client-only>
-      <el-input
-        type="hidden"
-        placeholder=""
-        v-model="innerData"
-      />
+      <event-proxy :value="innerData" />
     </el-form-item>
   </ValidationProvider>
 </template>
 
 <script>
 import FormItem from '@/components/ui/form/mixins/FormItem';
+import EventProxy from '@/components/ui/form/validation/EventProxy';
 
 export default {
   /**
    * Component name
    */
   name: 'LocationType',
-
+  components: {EventProxy},
   /**
    * Mixins
    */

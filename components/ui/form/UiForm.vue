@@ -15,6 +15,7 @@
 <script>
 import {eventBus} from '@/services/eventBus';
 import {getField, mapFields, updateField} from 'vuex-map-fields';
+import store from './store/form';
 
 export default {
   /**
@@ -69,39 +70,10 @@ export default {
   },
 
   created () {
-    const self = this;
     if (!this.$store.hasModule(this.name)) {
-      this.$store.registerModule(this.name, {
-        namespaced: true,
-        state: () => {
-          return {
-            form: {...this.model},
-            touched: false,
-            stack: [],
-            dirty: [],
-            valid: [],
-          }
-        },
-        getters: {
-          getField,
-        },
-        mutations: {
-          validate (state) {
-            state.touched = true;
-            state.dirty.push({...state.form});
-          },
-          submit (state) {
-            state.valid.push({...state.form});
-          },
-          updateField,
-        },
-        actions: {
-          hi () {},
-        }
-      });
+      this.$store.registerModule(this.name, store);
+      this.$store.commit(this.name + '/init', this.model);
     }
-
-
   },
 
   mounted () {
@@ -132,36 +104,44 @@ export default {
         return [];
       }
       return this.$store.state[this.name].dirty;
-    }
+    },
+
+    errors () {
+      if (!this.$store.state[this.name]) {
+        return [];
+      }
+      return this.$store.state[this.name].errors;
+    },
   },
 
   /**
    * Watcher
    */
   watch: {
+    /**
+     * Errors
+     */
+    errors: {
+      deep: true,
+      handler (value) {
+        this.$refs['observer_' + this.name].setErrors(value);
+      },
+    },
+
+    /**
+     * Unvalidated data, every time when we press submit
+     */
     dirty: {
       deep: true,
       async handler (value) {
         const res = await this.$refs['observer_' + this.name].validate();
         if (res) {
           this.$nextTick(function () {
-            this.$store.commit([this.name] + '/submit');
-          })
-
-
+            this.$store.dispatch(this.name + '/submit');
+          });
         }
       },
     },
-
-    /**
-     * Form
-     */
-    form: {
-      deep: true,
-      handler (value) {
-        //this.$emit('input', value);
-      }
-    }
   }
 }
 </script>
