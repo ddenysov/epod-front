@@ -2,7 +2,6 @@
   <ValidationObserver :ref="'observer_' + name">
     <el-form
       :ref="'elForm_' + name"
-      :model="form"
       :rules="rules"
       size="large"
       hide-required-asterisk
@@ -13,8 +12,6 @@
 </template>
 
 <script>
-import {eventBus} from '@/services/eventBus';
-import {getField, mapFields, updateField} from 'vuex-map-fields';
 import store from './store/form';
 
 export default {
@@ -60,15 +57,8 @@ export default {
   },
 
   /**
-   * Data attributes
-   * @returns {{form: {name: string}}}
+   * Created hook
    */
-  data () {
-    return {
-      form: {},
-    }
-  },
-
   created () {
     if (!this.$store.hasModule(this.name)) {
       this.$store.registerModule(this.name, store);
@@ -76,19 +66,13 @@ export default {
     }
   },
 
+  /**
+   * Mounted hook
+   */
   mounted () {
     this.$nextTick(function() {
       this.$refs['observer_' + this.name].reset();
     })
-  },
-
-  /**
-   * Methods
-   */
-  methods: {
-    input (field, value) {
-      this.form[field] = value;
-    }
   },
 
   /**

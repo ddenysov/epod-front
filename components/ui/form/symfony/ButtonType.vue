@@ -32,7 +32,7 @@ export default {
 
   methods: {
     submit () {
-      this.$store.commit(this.formName + '/SUBMIT');
+      this.$store.dispatch(this.formName + '/submit');
     }
   }
 }
