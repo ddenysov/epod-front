@@ -46,7 +46,23 @@ export default {
     rules: {
       type: Object,
       required: false,
-    }
+    },
+
+    /**
+     * Action
+     */
+    action: {
+      type: String,
+      default: '',
+    },
+
+    /**
+     * Method
+     */
+    method: {
+      type: String,
+      default: '',
+    },
   },
 
   provide () {
@@ -62,7 +78,11 @@ export default {
   created () {
     if (!this.$store.hasModule(this.name)) {
       this.$store.registerModule(this.name, store);
-      this.$store.commit(this.name + '/init', this.model);
+      this.$store.commit(this.name + '/init', {
+        model: this.model,
+        action: this.action,
+        method: this.method,
+      });
     }
   },
 

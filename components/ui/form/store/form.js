@@ -31,6 +31,21 @@ export default {
        * Errors object
        */
       errors: [],
+
+      /**
+       * Form params
+       */
+      params: {
+        /**
+         * Form action
+         */
+        action: '',
+
+        /**
+         * Form method
+         */
+        method: '',
+      },
     }
   },
 
@@ -53,8 +68,10 @@ export default {
      * @param state
      * @param payload
      */
-    init(state, payload) {
-      state.form = { ...payload };
+    init(state, { model, method, action }) {
+      state.form = { ...model };
+      state.params.method = method;
+      state.params.action = action;
     },
     /**
      * Push form data to validate stack
@@ -99,10 +116,13 @@ export default {
      */
     async submit({ state, commit }) {
       try {
-        const res = await this.$axios.post('/form/store', state.form);
+        const res = await this.$axios.request({
+          method: state.params.method,
+          url: state.params.action,
+          data: state.form,
+        });
         commit('submit');
       } catch (e) {
-        console.log(e.response.data.errors);
         commit('setErrors', {...e.response.data.errors})
       }
     },
