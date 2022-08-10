@@ -1,29 +1,49 @@
 import Vue from 'vue';
 
+/**
+ * State
+ * @returns {{stack: *[], tree: *[]}}
+ */
 export const state = () => ({
-  counter: 0,
-  x: 1,
   tree: [],
+  stack: [],
 })
 
-export const getter = {
-  getCounter(state) {
-    return state.counter
-  }
-}
+/**
+ * Getters
+ * @type {{}}
+ */
+export const getter = {}
 
+/**
+ * Mutations
+ * @type {{setTree(*, *): void, setSubTree(*, *): void}}
+ */
 export const mutations = {
-  increment(state) {
-    state.counter++
-  },
-
+  /**
+   * Set tree
+   * @param state
+   * @param payload
+   */
   setTree(state, payload) {
     state.tree = payload;
   },
 
+  /**
+   * Add stack
+   * @param state
+   * @param payload
+   */
+  addStack(state, payload) {
+    state.stack.push({...payload});
+  },
+
+  /**
+   * Set subtree
+   * @param state
+   * @param payload
+   */
   setSubTree(state, payload) {
-    console.log('payload');
-    console.log(payload.input.props.name);
     const map = (items) => {
       if (items.children && items.children.length > 0) {
         if (items.input.props && items.input.props.name === payload.input.props.name) {
@@ -35,28 +55,33 @@ export const mutations = {
       return items;
     };
 
-    console.log(map(state.tree));
-    console.log(state.tree);
+    map(state.tree)
   }
 }
 
+/**
+ * Actions
+ * @type {{fetchCounter(*): Promise<number>, nuxtServerInit({commit: *}, {req: *}): Promise<void>, updateTree({state: *, commit: *}, *): void}}
+ */
 export const actions = {
+  /**
+   * Update tree
+   * @param state
+   * @param commit
+   * @param payload
+   */
   updateTree ({ state, commit }, payload) {
-    console.log('ok');
-
     commit('setSubTree', payload)
   },
 
+  /**
+   * Nuxt server init hook
+   * @param commit
+   * @param req
+   * @returns {Promise<void>}
+   */
   async nuxtServerInit ({ commit }, { req }) {
     const res = await this.$axios.get('/');
     commit('setTree', res.data);
-    console.log(res.data);
-
   },
-  async fetchCounter(state) {
-    // make request
-    const res = { data: 10 };
-    state.counter = res.data;
-    return res.data;
-  }
 }

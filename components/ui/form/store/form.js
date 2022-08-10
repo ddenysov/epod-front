@@ -33,6 +33,11 @@ export default {
       errors: [],
 
       /**
+       * Response
+       */
+      response: [],
+
+      /**
        * Form params
        */
       params: {
@@ -105,6 +110,15 @@ export default {
     },
 
     /**
+     * Set response
+     * @param state
+     * @param payload
+     */
+    setResponse (state, payload) {
+      state.response.push({...payload});
+    },
+
+    /**
      * Map fields setter
      */
     updateField,
@@ -150,6 +164,8 @@ export default {
           url,
           data,
         });
+        commit('setResponse', res.data)
+        commit('addStack', res.data, { root: true })
         commit('submit');
       } catch (e) {
         commit('setErrors', {...e.response.data.errors})

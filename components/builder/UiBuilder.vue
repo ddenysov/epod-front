@@ -7,13 +7,59 @@ export default {
    */
   name: 'UiBuilder',
 
+  /**
+   * Props
+   */
   props: {
+    /**
+     * Components tree
+     */
     tree: {
       type: [Object, Array],
       required: true,
+    },
+
+    /**
+     * Listen forms
+     */
+    listen: {
+      type: Array,
+      default: () => [],
     }
   },
 
+  computed: {
+    /**
+     * Map state
+     */
+    ...mapState(['stack']),
+
+    /**
+     * Stack length
+     * @returns {number}
+     */
+    stackLength () {
+      return this.stack.length;
+    }
+  },
+
+  /**
+   * Watchers
+   */
+  watch: {
+    /**
+     * Stack length watcher
+     */
+    stackLength() {
+      this.$store.commit('setSubTree', this.stack.at(-1));
+    }
+  },
+
+  /**
+   * Render function
+   * @param createElement
+   * @returns {*}
+   */
   render: function (createElement) {
     const build = function (data, parent) {
       if (Object.keys(data).length === 0) {
@@ -27,9 +73,6 @@ export default {
       let params = {...data.input};
 
       if (Object.keys(data.slots).length > 0) {
-        console.log(data.slots.filters);
-        console.log(data);
-
         params = Object.assign(params, {
           scopedSlots: {
             filters: () => build(data.slots.filters),

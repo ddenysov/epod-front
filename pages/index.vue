@@ -1,5 +1,8 @@
 <template>
-  <ui-builder :tree="tree" />
+  <ui-builder
+    :tree="tree"
+    :listen="['events/search', 'events/filter']"
+  />
 </template>
 
 <script>
