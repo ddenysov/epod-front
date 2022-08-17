@@ -1,5 +1,5 @@
 <template>
-  <slot />
+  <h1>Coming soon...</h1>
 </template>
 
 <script>
@@ -7,8 +7,6 @@ export default {
   /**
    * Component name
    */
-  name: 'DataSource',
-
-
+  name: 'ComingSoon'
 }
 </script>

@@ -55,6 +55,8 @@ export default {
   components: [
     '~/components/builder',
     '~/components/app/events',
+    '~/components/app/stub',
+    '~/components',
     '~/components/ui/form',
     '~/components/ui/form/symfony',
     '~/components/ui/form/blocks',
@@ -63,6 +65,7 @@ export default {
     '~/components/ui/section',
     '~/components/ui/steps',
     '~/components/ui/grid',
+    '~/components/ui/navbar',
     '~/components/ui/collection/grid',
   ],
 

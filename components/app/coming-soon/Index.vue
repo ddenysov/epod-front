@@ -1,5 +1,5 @@
 <template>
-  <div>alalal</div>
+  <h1>Coming soon</h1>
 </template>
 
 <script>
@@ -7,10 +7,6 @@ export default {
   /**
    * Component name
    */
-  name: 'home',
-
-  layout (context) {
-    return 'element'
-  }
+  name: 'Index'
 }
 </script>
