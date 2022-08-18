@@ -59,9 +59,6 @@ export default {
      * @returns {*}
      */
     getValue (value) {
-      console.log('GET');
-      console.log(value);
-
       if (!value) {
         return value;
       }

@@ -1,6 +1,6 @@
 <template>
   <li class="nav-item">
-    <NuxtLink class="nav-link" :to="to">
+    <NuxtLink prefetch class="nav-link" :to="to">
       <slot />
     </NuxtLink>
   </li>

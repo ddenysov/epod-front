@@ -1,8 +1,19 @@
 <template>
-  <ui-builder
-    :tree="tree"
-    :listen="['events/search', 'events/filter']"
-  />
+  <div>
+    <h1>ololololo</h1>
+    <h1>ololololo</h1>
+    <h1>ololololo</h1>
+    <h1>ololololo</h1>
+    <h1>ololololo</h1>
+    <NuxtLink :prefetch="false" class="nav-link" to="/blog">
+      OLOLO
+    </NuxtLink>
+    <ui-builder
+      :tree="tree"
+      :listen="['events/search', 'events/filter']"
+    />
+  </div>
+
 </template>
 
 <script>
@@ -26,7 +37,7 @@ export default Vue.extend({
    */
   computed: {
     ...mapState({
-      tree: state => state.tree,
+      tree: state => state.tree.index ?? [],
     }),
   },
 
@@ -40,6 +51,17 @@ export default Vue.extend({
      */
     keys () {
       return ['form_search', 'form_filter'];
+    }
+  },
+
+  async fetch() {
+    if (this.tree.length === 0) {
+      console.log('INDEX');
+      const res = await this.$axios.get('/');
+      this.$store.commit('setTree', {
+        page: 'index',
+        tree: res.data,
+      })
     }
   },
 })

@@ -20,6 +20,7 @@ export default Vue.extend({
   },
 
   async fetch() {
+    console.log('FETCH TRACKS');
     const res = await this.$axios.get('/coming-soon');
     this.tree = res.data;
   },

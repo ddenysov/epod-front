@@ -2,10 +2,10 @@ import Vue from 'vue';
 
 /**
  * State
- * @returns {{stack: *[], tree: *[]}}
+ * @returns {{stack: *[], tree: {}}}
  */
 export const state = () => ({
-  tree: [],
+  tree: {},
   stack: [],
 })
 
@@ -25,8 +25,8 @@ export const mutations = {
    * @param state
    * @param payload
    */
-  setTree(state, payload) {
-    state.tree = payload;
+  setTree(state, { page, tree }) {
+    Vue.set(state.tree, page, tree);
   },
 
   /**
@@ -72,16 +72,5 @@ export const actions = {
    */
   updateTree ({ state, commit }, payload) {
     commit('setSubTree', payload)
-  },
-
-  /**
-   * Nuxt server init hook
-   * @param commit
-   * @param req
-   * @returns {Promise<void>}
-   */
-  async nuxtServerInit ({ commit }, { req }) {
-    const res = await this.$axios.get('/');
-    commit('setTree', res.data);
   },
 }

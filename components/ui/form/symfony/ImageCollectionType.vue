@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     handlePreview (file) {
-      console.log(this.$refs.uploader.uploadFiles);
       this.innerData = JSON.parse(JSON.stringify(this.$refs.uploader.uploadFiles.map((item) => item.response)));
     },
   }

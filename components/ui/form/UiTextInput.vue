@@ -27,7 +27,6 @@ export default {
 
   created () {
     this.innerValue = this.elForm.model[this.elFormItem.$options.propsData.prop];
-    console.log('createedd');
   },
 
   methods: {

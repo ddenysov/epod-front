@@ -78,8 +78,6 @@ export default {
             filters: () => build(data.slots.filters),
           },
         });
-
-        console.log(params);
       }
 
       return createElement(data.tag, params, data.children.map((component) => {
