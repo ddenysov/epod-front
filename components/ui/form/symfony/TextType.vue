@@ -3,7 +3,6 @@
     <el-form-item :error="errors[0]">
       <template slot="label">
         <ui-form-label
-          v-if="false"
           :label="label"
           :description="description"
         />

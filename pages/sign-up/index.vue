@@ -1,6 +1,6 @@
 <template>
   <ui-builder
-    page="coming_soon"
+    page="sign_up"
   />
 </template>
 
@@ -9,7 +9,7 @@ import Vue from 'vue'
 import PageHelpers from '@/services/page/mixins/PageHelpers';
 import Page from '@/services/page/class/Page';
 
-const page = (new Page('coming_soon', Vue)).init();
+const page = (new Page('sign_up', Vue)).init();
 
 export default Vue.extend({
   /**

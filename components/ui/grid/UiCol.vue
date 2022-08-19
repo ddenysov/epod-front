@@ -1,5 +1,5 @@
 <template>
-  <el-col :span="span">
+  <el-col :span="span" :offset="offset">
     <slot />
   </el-col>
 </template>
@@ -21,7 +21,15 @@ export default {
     span: {
       type: Number,
       required: true,
-    }
+    },
+
+    /**
+     * Offset
+     */
+    offset: {
+      type: Number,
+      default: 0
+    },
   }
 }
 </script>
