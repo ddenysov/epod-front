@@ -5,3 +5,15 @@
 .nuxt-link-exact-active:not(button) {
   color: $--color-primary !important;
 }
+
+.right-header {
+  li {
+    margin: 0 !important;
+  }
+}
+
+.create-btn:hover {
+  color: white !important;
+  background-color: #78db4f;
+  border-color: #78db4f;
+}

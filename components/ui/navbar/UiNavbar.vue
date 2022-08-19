@@ -28,55 +28,28 @@
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
-            <div class="offcanvas-body">
+            <div :style="{ 'padding-left': '20px' }" class="offcanvas-body">
               <div class="offcanvas-top-area">
                 <div class="create-bg">
                   <a href="create.html" class="offcanvas-create-btn">
                     <i class="fa-solid fa-calendar-days"></i>
-                    <span>Створити Подію</span>
+                    <span>Створити Подію1</span>
                   </a>
                 </div>
               </div>
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe_5">
-                <slot>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                  </li>
-                </slot>
-
+              <ul class="navbar-nav flex-grow-1 pe_5">
+                <slot/>
               </ul>
             </div>
           </div>
           <div class="right-header order-2">
             <ul class="align-self-stretch">
+                <ui-navbar-link to="/sign-in">Увійти</ui-navbar-link>
               <li>
-                <NuxtLink class="create-btn btn-hover" to="/event/create">
+                <NuxtLink class="create-btn" to="/sign-up">
                   <i class="fa-solid fa-calendar-days"></i>
                   <span>Створити Подію</span>
                 </NuxtLink>
-              </li>
-              <li class="dropdown account-dropdown">
-                <a href="#" class="account-link" role="button" id="accountClick" data-bs-auto-close="outside"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="/images/profile-imgs/img-13.jpg" alt="">
-                  <i class="fas fa-caret-down arrow-icon"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-account dropdown-menu-end" aria-labelledby="accountClick">
-                  <li>
-                    <div class="dropdown-account-header">
-                      <div class="account-holder-avatar">
-                        <img src="/images/profile-imgs/img-13.jpg" alt="">
-                      </div>
-                      <h5>John Doe</h5>
-                      <p>johndoe@example.com</p>
-                    </div>
-                  </li>
-                  <li class="profile-link">
-                    <a href="my_organisation_dashboard.html" class="link-item">My Organisation</a>
-                    <a href="organiser_profile_view.html" class="link-item">My Profile</a>
-                    <a href="sign_in.html" class="link-item">Sign Out</a>
-                  </li>
-                </ul>
               </li>
             </ul>
           </div>
