@@ -1,39 +1,30 @@
 <template>
-  <ui-builder :tree="tree" />
+  <ui-builder page="event/create" />
 </template>
 
 <script>
 import Vue from 'vue'
-import {mapState} from "vuex";
+import Page from '@/services/page/class/Page';
+import PageHelpers from '@/services/page/mixins/PageHelpers';
+
+const page = (new Page('event/create', Vue)).init();
 
 export default Vue.extend({
+  /**
+   * Component name
+   */
   name: 'CreatePage',
 
-  data() {
-    return {
-      treex: []
-    }
-  },
+  /**
+   * Component mixins
+   */
+  mixins: [PageHelpers],
 
   /**
-   * Computed props
+   * Fetch hook
    */
-  computed: {
-    ...mapState({
-      tree: state => state.tree.create_event ?? [],
-    }),
-  },
-
-  async fetch() {
-    if (this.tree.length === 0) {
-      console.log('EVENT CREATE');
-      const res = await this.$axios.get('/event/create');
-      this.$store.commit('setTree', {
-        page: 'create_event',
-        tree: res.data,
-      })
-      this.treex = res.data;
-    }
+  async fetch () {
+    await this.setPage(page);
   },
 })
 </script>

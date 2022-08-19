@@ -24,7 +24,7 @@ class Database {
   async store(page, tree) {
     const exists = await this.exists(page);
     const expire = new Date();
-    expire.setSeconds(expire.getSeconds() + 600);
+    expire.setSeconds(expire.getSeconds() + 0);
 
     return exists ?
       await this.db.pages.update(page, { tree, expire }) :
@@ -62,13 +62,14 @@ class Database {
    * @returns {Promise<boolean>}
    */
   async expired(page) {
+    return true;
     const lookupPage = await this.get(page);
     if (!lookupPage) {
       return true;
     }
     const now = new Date();
 
-    return lookupPage.expire.getTime() > now.getTime();
+    return lookupPage.expire.getTime() < now.getTime();
   }
 }
 

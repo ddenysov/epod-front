@@ -1,11 +1,15 @@
 <template>
   <ui-builder
-    :tree="tree"
+    page="coming_soon"
   />
 </template>
 
 <script>
 import Vue from 'vue'
+import PageHelpers from '@/services/page/mixins/PageHelpers';
+import Page from '@/services/page/class/Page';
+
+const page = (new Page('coming_soon', Vue)).init();
 
 export default Vue.extend({
   /**
@@ -13,16 +17,16 @@ export default Vue.extend({
    */
   name: 'IndexPage',
 
-  data() {
-    return {
-      tree: []
-    }
-  },
+  /**
+   * Mixins
+   */
+  mixins: [PageHelpers],
 
-  async fetch() {
-    console.log('FETCH TRACKS');
-    const res = await this.$axios.get('/coming-soon');
-    this.tree = res.data;
+  /**
+   * Fetch hook
+   */
+  async fetch () {
+    await this.setPage(page);
   },
 })
 </script>

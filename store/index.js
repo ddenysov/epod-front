@@ -43,11 +43,11 @@ export const mutations = {
    * @param state
    * @param payload
    */
-  setSubTree(state, payload) {
+  setSubTree(state, { tree, page }) {
     const map = (items) => {
       if (items.children && items.children.length > 0) {
-        if (items.input.props && items.input.props.name === payload.input.props.name) {
-          Vue.set(items, 'children', payload.children);
+        if (items.input.props && items.input.props.name === tree.input.props.name) {
+          Vue.set(items, 'children', tree.children);
         } else {
           Vue.set(items, 'children', items.children.map((item) => map(item)));
         }
@@ -55,7 +55,7 @@ export const mutations = {
       return items;
     };
 
-    map(state.tree)
+    map(state.tree[page])
   }
 }
 

@@ -14,8 +14,8 @@ export default {
     /**
      * Components tree
      */
-    tree: {
-      type: [Object, Array],
+    page: {
+      type: String,
       required: true,
     },
 
@@ -35,6 +35,17 @@ export default {
     ...mapState(['stack']),
 
     /**
+     * Tree
+     */
+    tree () {
+      if (!this.page || !this.$store.state.tree || !this.$store.state.tree[this.page]) {
+        return [];
+      }
+
+      return this.$store.state.tree[this.page] ?? [];
+    },
+
+    /**
      * Stack length
      * @returns {number}
      */
@@ -51,7 +62,10 @@ export default {
      * Stack length watcher
      */
     stackLength() {
-      this.$store.commit('setSubTree', this.stack.at(-1));
+      this.$store.commit('setSubTree', {
+        tree: this.stack.at(-1),
+        page: this.page,
+      });
     }
   },
 
