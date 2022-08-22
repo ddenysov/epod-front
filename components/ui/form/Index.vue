@@ -104,6 +104,7 @@ export default {
    * Mounted hook
    */
   mounted () {
+    console.log('observer_' + this.name);
     this.$nextTick(function () {
       this.$refs['observer_' + this.name].reset();
     })
@@ -144,11 +145,26 @@ export default {
       return this.$store.state[this.storeName].dirty;
     },
 
+    /**
+     * Errors
+     * @returns {*[]|*}
+     */
     errors () {
       if (!this.$store.state[this.storeName]) {
         return [];
       }
       return this.$store.state[this.storeName].errors;
+    },
+
+    /**
+     * Response
+     * @returns {*[]|*}
+     */
+    response () {
+      if (!this.$store.state[this.storeName]) {
+        return [];
+      }
+      return this.$store.state[this.storeName].response;
     },
   },
 
@@ -167,6 +183,19 @@ export default {
     },
 
     /**
+     * Response
+     */
+    response: {
+      deep: true,
+      handler (value) {
+        const lastResponse = value.at(-1);
+        if (lastResponse && lastResponse.redirect) {
+          this.$nuxt.$router.replace({ path: value.at(-1).redirect});
+        }
+      },
+    },
+
+    /**
      * Unvalidated data, every time when we press submit
      */
     dirty: {
@@ -174,8 +203,9 @@ export default {
       async handler (value) {
         const res = await this.$refs['observer_' + this.name].validate();
         if (res) {
-          this.$nextTick(function () {
-            this.$store.dispatch(this.storeName + '/submit');
+          this.$nextTick(async function () {
+            const res = await this.$store.dispatch(this.storeName + '/submit');
+            console.log(res);
           });
         }
       },

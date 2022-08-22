@@ -57,7 +57,6 @@ export default {
     '~/components/app/events',
     '~/components/app/stub',
     '~/components',
-    '~/components/ui/form',
     '~/components/ui/form/symfony',
     '~/components/ui/form/blocks',
     '~/components/ui/form/layouts',
